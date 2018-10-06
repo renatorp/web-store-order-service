@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: web-store-order-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: renatorp
+Implementation-Vendor-Id: com.example
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/web-store-order-service
+Created-By: Maven Integration for Eclipse
+

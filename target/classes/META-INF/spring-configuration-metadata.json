@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.example.webstoreorderservice.configuration.Configuration",
+      "name": "web-store-order-service",
+      "type": "com.example.webstoreorderservice.configuration.Configuration"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.example.webstoreorderservice.configuration.Configuration",
+      "name": "web-store-order-service.max-items-per-order",
+      "type": "java.lang.Integer"
+    }
+  ]
+}
