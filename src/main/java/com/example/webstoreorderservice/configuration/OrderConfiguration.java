@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("web-store-order-service")
-public class Configuration {
+@ConfigurationProperties
+public class OrderConfiguration {
 
 	private Integer maxItemsPerOrder;
 
