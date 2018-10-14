@@ -11,14 +11,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.webstoreorderservice.configuration.OrderConfiguration;
 import com.example.webstoreorderservice.dao.OrderDAO;
 import com.example.webstoreorderservice.dao.OrderItemDAO;
 import com.example.webstoreorderservice.entity.Order;
 import com.example.webstoreorderservice.entity.OrderItem;
 import com.example.webstoreorderservice.exception.OrderNotFoundException;
-import com.example.webstoreorderservice.exception.TooManyItemsException;
 import com.example.webstoreorderservice.serviceproxy.CartServiceProxy;
+import com.example.webstoreorderservice.validator.OrderValidator;
 import com.example.webstoreorderservice.vo.CreateOrderRequestVO;
 import com.example.webstoreorderservice.vo.OrderItemRequestVO;
 import com.example.webstoreorderservice.vo.ProductVO;
@@ -33,14 +32,14 @@ public class OrderService {
 	private OrderItemDAO orderItemDAO;
 	
 	@Autowired
-	private OrderConfiguration configuration;
+	private OrderValidator validator;
 
 	@Autowired
 	private CartServiceProxy cartProxy;
 
 	public Order placeOrder(CreateOrderRequestVO orderRequest) {
 
-		validateOrder(orderRequest);
+		validator.validateOrder(orderRequest);
 		
 		List<ProductVO> products = cartProxy.findCartItemsProducts(orderRequest.getCartId());
 		Order order = createOrder(orderRequest, products);
@@ -48,15 +47,6 @@ public class OrderService {
 		cartProxy.clearCart(orderRequest.getCartId());
 		
 		return order;
-	}
-
-	
-	private void validateOrder(CreateOrderRequestVO orderRequest) {
-		Integer maxItemsPerOrder = configuration.getMaxItemsPerOrder();
-		if (orderRequest.getItems().size() > maxItemsPerOrder) {
-			throw new TooManyItemsException(maxItemsPerOrder);
-		}
-		
 	}
 
 	private Order createOrder(CreateOrderRequestVO orderRequest, List<ProductVO> products) {
